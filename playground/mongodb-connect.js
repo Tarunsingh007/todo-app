@@ -18,8 +18,8 @@ var date =new Date();
 		name:"tarun singh",
 		age:20,
 		location:"firozabad",
-		time : date
-	},(err,result)=>{
+		time : date}
+	,(err,result)=>{
 		if(err)
 		{
 			return console.log('unable to insert users',err);
