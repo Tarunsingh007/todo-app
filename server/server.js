@@ -1,4 +1,5 @@
 var express=require('express');
+const _=require('lodash');
 var bodyparser=require('body-parser');
 var {ObjectID}=require('mongodb');
 
@@ -44,6 +45,22 @@ app.get('/todos/:id',(req,res)=>{
 	}).catch((e)=>{
 		res.status(400).send(e);
 	});
+});
+
+app.post('/user',(req,res)=>{
+	var newuser= new user({
+		email:req.body.email,
+		password:req.body.password
+	});
+
+	newuser.save().then(()=>
+	{
+		return  newuser.generateAuthToken();
+	}).then((token)=>{
+		res.header('x-auth', token).send(newuser);
+	}).catch((e)=>{
+		res.status(400).send(e);
+	})
 });
 
 app.listen(port,()=>{
